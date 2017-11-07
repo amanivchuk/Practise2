@@ -1,6 +1,5 @@
 package ua.nure.manivchuk.Practice2;
 
-import java.io.BufferedReader;
 import java.util.Arrays;
 
 /**
@@ -16,6 +15,11 @@ public class MyListImpl implements MyList {
     }
 
     public void add(Object e) {
+        if(count == list.length-1){
+            Object[] newList = new Object[count * 2];
+            System.arraycopy(list,0,newList,0,list.length);
+            list = newList;
+        }
         list[count++] = e;
     }
 
