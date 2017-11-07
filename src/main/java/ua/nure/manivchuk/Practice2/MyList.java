@@ -3,7 +3,7 @@ package ua.nure.manivchuk.Practice2;
 /**
  * Created by Lenovo on 11/6/2017.
  */
-public interface MyList {
+public interface MyList extends Iterable<Object>{
     // appends the specified element to the end of this list
     void add(Object e);
     // removes all of the elements from this list

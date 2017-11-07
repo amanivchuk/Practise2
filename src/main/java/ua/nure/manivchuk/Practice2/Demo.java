@@ -1,5 +1,7 @@
 package ua.nure.manivchuk.Practice2;
 
+import java.util.Iterator;
+
 /**
  * Created by Lenovo on 11/6/2017.
  */
@@ -43,5 +45,38 @@ public class Demo {
 // true
         list.add("B");
         System.out.println(list.containsAll(anotherList));
+
+
+        /*Part 2*/
+        System.out.println("==== Part2");
+        list = new MyListImpl();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+// 1 2 3 4
+        Iterator<Object> it = list.iterator();
+        while (it.hasNext()) {
+            System.out.print(it.next() + " ");
+        }
+        System.out.println();
+// [1, 3, 4]
+        it = list.iterator();
+        it.next();
+        it.next();
+        it.remove();
+        System.out.println(list);
+// 3
+        System.out.println(it.next());
+// [1, 4]
+        it.remove();
+        System.out.println(list);
+
+// class java.lang.IllegalStateException
+        try {
+            it.remove();
+        } catch (IllegalStateException ex) {
+            System.out.println(ex.getClass());
+        }
     }
 }
