@@ -19,10 +19,6 @@ public class MyListImpl implements MyList, ListIterable {
         return list;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void add(Object e) {
         if(count == list.length-1){
             Object[] newList = new Object[count * 2];
@@ -124,13 +120,14 @@ public class MyListImpl implements MyList, ListIterable {
     @Override
     public Iterator<Object> iterator() {
         return new IteratorImpl();
-        /*return new Iterator<Object>() {
+   /*     return new Iterator<Object>() {
             private int pos = 0;
             private boolean flag = false;
+            private int countt = size();
 
             @Override
             public boolean hasNext() {
-                return count > pos;
+                return countt > pos;
             }
 
             @Override
@@ -145,7 +142,7 @@ public class MyListImpl implements MyList, ListIterable {
                     throw new IllegalStateException();
                 }
                 System.arraycopy(list, pos, list, pos-1, list.length-1-pos);
-                count = count-1;
+                countt = countt-1;
                 pos--;
                 flag = false;
             }
@@ -155,5 +152,59 @@ public class MyListImpl implements MyList, ListIterable {
     @Override
     public ListIterator listIterator() {
         return new ListIteratorImpl();
+    }
+
+
+    private class IteratorImpl implements Iterator<Object> {
+        protected int pos = 0;
+        protected boolean flag = false;
+//        private int countt = size();
+
+        @Override
+        public boolean hasNext() {
+            return count > pos;
+        }
+
+        @Override
+        public Object next() {
+            flag = true;
+            return list[pos++];
+        }
+
+        @Override
+        public void remove() {
+            if(!flag){
+                throw new IllegalStateException();
+            }
+            System.arraycopy(list, pos, list, pos-1, list.length-1-pos);
+            count = count-1;
+            pos--;
+            flag = false;
+        }
+    }
+
+    private class ListIteratorImpl extends IteratorImpl implements ListIterator {
+        // returns true if this list iterator has more elements when traversing the list in the reverse direction
+        @Override
+        public boolean hasPrevious() {
+            return pos != 0;
+        }
+
+        // returns the previous element in the list and moves the cursor position backwards
+        @Override
+        public Object previous() {
+            flag = true;
+            return list[--pos];
+        }
+
+        // replaces the last element returned by next or previous with the specified element
+        @Override
+        public void set(Object e) {
+            if(!flag){
+                throw new IllegalStateException();
+            }
+            list[pos] = e;
+            flag = false;
+        }
     }
 }

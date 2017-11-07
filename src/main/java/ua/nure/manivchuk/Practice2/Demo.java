@@ -78,5 +78,37 @@ public class Demo {
         } catch (IllegalStateException ex) {
             System.out.println(ex.getClass());
         }
+
+        /*Part 3*/
+        System.out.println("==== Part3");
+        list = new MyListImpl();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+// 1 2 3 4
+        ListIterator lit = ((ListIterable)list).listIterator();
+        while (lit.hasNext()) {
+            System.out.print(lit.next() + " ");
+        }
+        System.out.println();
+// 4 3 2 1
+        while (lit.hasPrevious()) {
+            System.out.print(lit.previous() + " ");
+        }
+        System.out.println();
+        list = new MyListImpl();
+        lit = ((ListIterable)list).listIterator();
+// false
+        System.out.println(lit.hasNext());
+// false
+        System.out.println(lit.hasPrevious());
+// Elemenet
+        list.add("Element");
+        System.out.println(lit.next());
+// false
+        System.out.println(lit.hasNext());
+// true
+        System.out.println(lit.hasPrevious());
     }
 }
