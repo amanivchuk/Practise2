@@ -15,10 +15,6 @@ public class MyListImpl implements MyList, ListIterable {
         this.list = new Object[10];
     }
 
-    public Object[] getList() {
-        return list;
-    }
-
     public void add(Object e) {
         if(count == list.length-1){
             Object[] newList = new Object[count * 2];
