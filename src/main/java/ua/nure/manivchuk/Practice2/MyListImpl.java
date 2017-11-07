@@ -6,13 +6,21 @@ import java.util.Iterator;
 /**
  * Created by Lenovo on 11/6/2017.
  */
-public class MyListImpl implements MyList {
+public class MyListImpl implements MyList, ListIterable {
 
     private Object[] list;
     private int count = 0;
 
     public MyListImpl() {
         this.list = new Object[10];
+    }
+
+    public Object[] getList() {
+        return list;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public void add(Object e) {
@@ -115,7 +123,8 @@ public class MyListImpl implements MyList {
 
     @Override
     public Iterator<Object> iterator() {
-        return new Iterator<Object>() {
+        return new IteratorImpl();
+        /*return new Iterator<Object>() {
             private int pos = 0;
             private boolean flag = false;
 
@@ -140,6 +149,11 @@ public class MyListImpl implements MyList {
                 pos--;
                 flag = false;
             }
-        };
+        };*/
+    }
+
+    @Override
+    public ListIterator listIterator() {
+        return new ListIteratorImpl();
     }
 }
